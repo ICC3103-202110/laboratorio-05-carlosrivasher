@@ -2,13 +2,20 @@ const {inputValues} = require('./view')
 const {printTable} = require('console-table-printer')
 
 async function app(state, update, view){
-    const {model, currentView} = state
-    const {tittle, table} = currentView
-    console.clear()
-    console.log(tittle)
-    printTable(table)
-    const {input1} = await inputValues(model)
-    console.log(input1)
+    while (true){
+        const {model, currentView} = state
+        const {tittle, table} = currentView
+        console.clear()
+        console.log(tittle)
+        printTable(table)
+        const values = await inputValues(model)
+        const updateModel = update(values['billAmount'], values['percentage'], model)
+        state = {
+            ...state,
+            model: updateModel,
+            currentView: view(updateModel)
+        }
+    }
 }
 
 module.exports = {
