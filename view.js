@@ -8,7 +8,7 @@ function getTitle(){
         'Tip Calculator App',
         {
             horizontalLayout: 'full',
-            font: 'Nancyj-Underlined'
+            font: 'speed'
         }
         )
     )
@@ -36,13 +36,27 @@ function inputValues(model){
             name: 'billAmount',
             type: 'input',
             message: 'Bill Amount?',
-            default: billAmount
+            default: billAmount,
+            validate: function(value){
+                if(value>=0){
+                    return true
+                } else {
+                    return 'Invalid number, bill amount must be >= 0'
+                }
+            }
         },
         {
             name: 'percentage',
             type: 'input',
             message: 'Tip(%)?',
-            default: percentage
+            default: percentage,
+            validate: function(value){
+                if(value >= 0){
+                    return true
+                } else {
+                    return 'Invalid number, tip(%) must be >= 0'
+                }
+            }
         }
     ])
 }
